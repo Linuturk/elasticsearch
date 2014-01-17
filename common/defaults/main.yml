@@ -1,12 +1,4 @@
 ---
-redhat_packages:
-  - java-1.7.0-openjdk
-  - elasticsearch
-
-debian_packages:
-  - openjdk-7-jre-headless
-  - elasticsearch
-
 elasticsearch_cluster_name: elasticsearch
 elasticsearch_node: {
   master: true,
@@ -33,17 +25,17 @@ elasticsearch_path: {
   plugins: "/usr/share/elasticsearch/plugins"
 }
 
-  elasticsearch_network: {
-    host: "127.0.0.1",
-    bind_host: "127.0.0.1",
-    publish_host: "127.0.0.1"
-    }
-
-  elasticsearch_transport: {
-  }
-
-  elasticsearch_http: {
-  }
+#  elasticsearch_network: {
+#    host: "127.0.0.1",
+#    bind_host: "127.0.0.1",
+#    publish_host: "127.0.0.1"
+#    }
+#
+#  elasticsearch_transport: {
+#  }
+#
+#  elasticsearch_http: {
+#  }
 
      
 #elasticsearch_plugin: {
