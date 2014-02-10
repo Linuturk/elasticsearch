@@ -2,3 +2,6 @@
 debian_packages:
   - openjdk-7-jre-headless
   - elasticsearch
+
+requirements:
+  - python-pycurl

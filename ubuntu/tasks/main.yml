@@ -1,4 +1,8 @@
 ---
+- name: install dependencies
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=86400 state=present
+  with_items: requirements
+
 - name: install elasticsearch signing key
   apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
 
