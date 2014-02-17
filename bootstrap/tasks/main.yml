@@ -1,3 +1,0 @@
----
-- name: group by linux distro
-  group_by: key={{ ansible_distribution }}
