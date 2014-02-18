@@ -34,14 +34,14 @@
 #
 # cluster.name: elasticsearch
 
-cluster.name: {{ elasticsearch_cluster_name }}
+cluster.name: "{{ elasticsearch_cluster_name }}"
 
 #################################### Node #####################################
 
 # Node names are generated dynamically on startup, so you're relieved
 # from configuring them manually. You can tie this node to a specific name:
 #
-# node.name: "Franz Kafka"
+node.name: "{{ ansible_hostname }}"
 
 # Every node can be configured to allow or deny being eligible as the master,
 # and to allow or deny to store the data.
