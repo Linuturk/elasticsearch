@@ -1,11 +1,14 @@
 ---
-elasticsearch_cluster_name: elasticsearch
+# Advice is not to name a cluster 'elasticsearch' by default, 
+# as any new nodes with a default config would join it
+elasticsearch_cluster_name: rax.elasticsearch
 elasticsearch_node: {
   master: true,
-  data: true
-# By default we leave this variable undefined so that a random node name is selected by elasticsearch. Uncomment to
-# explicitly set a node name.
-  #name: node01
+  data: true,
+  # By default, elasticsearch selects a random node name.
+  # Our template overrides to the short hostname. Uncomment to
+  # pick another value.
+  # name: "foo1",
 }
 
 elasticsearch_index: {

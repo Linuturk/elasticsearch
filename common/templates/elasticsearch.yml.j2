@@ -10,14 +10,6 @@
 # The installation procedure is covered at
 # <http://elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html>.
 #
-# ElasticSearch comes with reasonable defaults for most settings,
-# so you can try it out without bothering with configuration.
-#
-# Most of the time, these defaults are just fine for running a production
-# cluster. If you're fine-tuning your cluster, or wondering about the
-# effect of certain configuration option, please _do ask_ on the
-# mailing list or IRC channel [http://elasticsearch.org/community].
-
 # Any element in the configuration can be replaced with environment variables
 # by placing them in ${...} notation. For example:
 #
@@ -41,39 +33,27 @@ cluster.name: "{{ elasticsearch_cluster_name }}"
 # Node names are generated dynamically on startup, so you're relieved
 # from configuring them manually. You can tie this node to a specific name:
 #
+{% if elasticsearch_node.name is defined %}
+node.name: "{{ elasticsearch_node.name }}"
+{% else %}
 node.name: "{{ ansible_hostname }}"
+{% endif %}
 
 # Every node can be configured to allow or deny being eligible as the master,
 # and to allow or deny to store the data.
 #
 # Allow this node to be eligible as a master node (enabled by default):
 #
-# node.master: true
+{% if elasticsearch_node.master %}
+# node.master: True (Default)
+{% else %}
+# only populate this line when it is false -- elasticsearch is broken.
+node.master: {{ elasticsearch_node.master }}
+{% endif %}
 #
 # Allow this node to store data (enabled by default):
 #
-# node.data: true
-
-# You can exploit these settings to design advanced cluster topologies.
-#
-# 1. You want this node to never become a master node, only to hold data.
-#    This will be the "workhorse" of your cluster.
-#
-# node.master: false
-# node.data: true
-#
-# 2. You want this node to only serve as a master: to not store any data and
-#    to have free resources. This will be the "coordinator" of your cluster.
-#
-# node.master: true
-# node.data: false
-#
-# 3. You want this node to be neither master nor data node, but
-#    to act as a "search load balancer" (fetching data from nodes,
-#    aggregating results, etc.)
-#
-# node.master: false
-# node.data: false
+node.data: {{ elasticsearch_node.data }}
 
 # Use the Cluster Health API [http://localhost:9200/_cluster/health], the
 # Node Info API [http://localhost:9200/_cluster/nodes] or GUI tools
@@ -105,18 +85,11 @@ node.name: "{{ ansible_hostname }}"
 # for more information.
 
 # Set the number of shards (splits) of an index (5 by default):
-#
-# index.number_of_shards: 5
-
-# Set the number of replicas (additional copies) of an index (1 by default):
-#
-# index.number_of_replicas: 1
-
 # Note, that for development on a local machine, with small indices, it usually
-# makes sense to "disable" the distributed features:
+# makes sense to "disable" the distributed features
 #
-# index.number_of_shards: 1
-# index.number_of_replicas: 0
+index.number_of_shards: {{ elasticsearch_index.number_of_shards  }}
+index.number_of_replicas: {{ elasticsearch_index.number_of_replicas }}
 
 # These settings directly affect the performance of index and search operations
 # in your cluster. Assuming you have enough machines to hold shards and
@@ -144,11 +117,11 @@ node.name: "{{ ansible_hostname }}"
 
 # Path to directory containing configuration (this file and logging.yml):
 #
-# path.conf: /path/to/conf
+path.conf: {{ elasticsearch_path.conf }}
 
 # Path to directory where to store index data allocated for this node.
 #
-# path.data: /path/to/data
+path.data: {{ elasticsearch_path.data }}
 #
 # Can optionally include more than one location, causing data to be striped across
 # the locations (a la RAID 0) on a file level, favouring locations with most free
@@ -158,15 +131,15 @@ node.name: "{{ ansible_hostname }}"
 
 # Path to temporary files:
 #
-# path.work: /path/to/work
+path.work: {{ elasticsearch_path.work }}
 
 # Path to log files:
 #
-# path.logs: /path/to/logs
+path.logs: {{ elasticsearch_path.logs }}
 
 # Path to where plugins are installed:
 #
-# path.plugins: /path/to/plugins
+path.plugins: {{ elasticsearch_path.plugins }}
 
 
 #################################### Plugin ###################################
@@ -183,7 +156,7 @@ node.name: "{{ ansible_hostname }}"
 #
 # Set this property to true to lock the memory:
 #
-# bootstrap.mlockall: true
+bootstrap.mlockall: {{ elasticsearch_bootstrap.mlockall }}
 
 # Make sure that the ES_MIN_MEM and ES_MAX_MEM environment variables are set
 # to the same value, and that the machine has enough memory to allocate
@@ -200,14 +173,19 @@ node.name: "{{ ansible_hostname }}"
 # communication. (the range means that if the port is busy, it will automatically
 # try the next port).
 
+# configure service net for transport, loopback for http (we will reverse proxy)
+network.host: {{ ansible_eth2.ipv4.address }}
+http.host: {{ ansible_lo.ipv4.address }}
+
+
 # Set the bind address specifically (IPv4 or IPv6):
 #
-# network.bind_host: 192.168.0.1
+# network.bind_host: ::0
 
 # Set the address other nodes will use to communicate with this node. If not
 # set, it is automatically derived. It must point to an actual IP address.
 #
-# network.publish_host: 192.168.0.1
+# network.publish_host: _eth1:ipv4_
 
 # Set both 'bind_host' and 'publish_host':
 #
@@ -320,13 +298,17 @@ node.name: "{{ ansible_hostname }}"
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-# discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.multicast.enabled: false
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
 #
-# discovery.zen.ping.unicast.hosts: ["host1", "host2:port"]
-
+discovery.zen.ping.unicast.hosts: [{% 
+	for host in groups['elasticsearch'] 
+		%} "{{ hostvars[host]['ansible_eth2']['ipv4']['address'] }}"{% if not loop.last %}, {% endif %} {% 
+	endfor 
+%}]
+#
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
 # You have to install the cloud-aws plugin for enabling the EC2 discovery.
