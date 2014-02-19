@@ -174,7 +174,7 @@ bootstrap.mlockall: {{ elasticsearch_bootstrap.mlockall }}
 # try the next port).
 
 # configure service net for transport, loopback for http (we will reverse proxy)
-network.host: {{ ansible_eth2.ipv4.address }}
+network.host: {{ ansible_eth1.ipv4.address }}
 http.host: {{ ansible_lo.ipv4.address }}
 
 
@@ -305,7 +305,7 @@ discovery.zen.ping.multicast.enabled: false
 #
 discovery.zen.ping.unicast.hosts: [{% 
 	for host in groups['elasticsearch'] 
-		%} "{{ hostvars[host]['ansible_eth2']['ipv4']['address'] }}"{% if not loop.last %}, {% endif %} {% 
+		%} "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}"{% if not loop.last %}, {% endif %} {% 
 	endfor 
 %}]
 #

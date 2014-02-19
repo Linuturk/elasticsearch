@@ -5,6 +5,10 @@ elasticsearch_cluster_name: rax.elasticsearch
 elasticsearch_node: {
   master: true,
   data: true,
+
+  # Uncomment set a heap size, otherwise it will be 50% of memory
+  # heapsize: "1g",
+
   # By default, elasticsearch selects a random node name.
   # Our template overrides to the short hostname. Uncomment to
   # pick another value.

@@ -1,23 +1,29 @@
 # Run ElasticSearch as this user ID and group ID
-#ES_USER=elasticsearch
-#ES_GROUP=elasticsearch
-
-# Heap Size (defaults to 256m min, 1g max)
-#ES_HEAP_SIZE=2g
+# these are uncommented to override any packaged init script
+ES_USER=elasticsearch
+ES_GROUP=elasticsearch
 
 # Heap new generation
 #ES_HEAP_NEWSIZE=
+
+# Heap Size (defaults to 256m min, 1g max)
+# -- this setting actually comes from the common part of the playbook --
+{% if elasticsearch_node is defined and elasticsearch_node.heapsize is defined %}
+ES_HEAP_SIZE={{ elasticsearch_node.heapsize }}
+{% else %}
+ES_HEAP_SIZE={{ ansible_memtotal_mb // 2 }}m
+{% endif %}
+
+# Maximum locked memory size. Set to "unlimited" if you use the
+# bootstrap.mlockall option in elasticsearch.yml. You must also set
+# ES_HEAP_SIZE.
+MAX_LOCKED_MEMORY=unlimited
 
 # max direct memory
 #ES_DIRECT_SIZE=
 
 # Maximum number of open files, defaults to 65535.
 #MAX_OPEN_FILES=65535
-
-# Maximum locked memory size. Set to "unlimited" if you use the
-# bootstrap.mlockall option in elasticsearch.yml. You must also set
-# ES_HEAP_SIZE.
-#MAX_LOCKED_MEMORY=unlimited
 
 # Maximum number of VMA (Virtual Memory Areas) a process can own
 #MAX_MAP_COUNT=262144
