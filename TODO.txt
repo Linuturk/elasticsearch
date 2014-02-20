@@ -1,2 +1,4 @@
-- needs iptables rules 
-- needs best practices implemented
+- needs web proxy frontend for auth (nginx/apache)
+- needs plugins support for elasticsearch
+- needs iptables rules to protect :9200, :9300
+- needs addl best practices implemented
