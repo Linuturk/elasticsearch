@@ -15,7 +15,11 @@ elasticsearch_index: {
 
 elasticsearch_bootstrap: {
   mlockall: true,
-  heapsize: '{{ ansible_memtotal_mb // 2 }}m', # 50% of memory, best practice
+
+  # Use 40% of memory for heap, ES will also use large amount of
+  # direct memory allocation, hopefully ending with a total around 50%
+  # of the whole available system memory 
+  heapsize: '{{ (ansible_memtotal_mb*0.4)|round|int }}m', # round returns float, use int filter
 }
 
 elasticsearch_path: {

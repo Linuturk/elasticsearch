@@ -13,3 +13,4 @@
 
 - name: ensure elasticsearch service is running
   service: name=elasticsearch enabled=yes state=started
+  notify: verify elasticsearch
