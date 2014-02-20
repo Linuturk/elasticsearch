@@ -33,11 +33,7 @@ cluster.name: "{{ elasticsearch_cluster_name }}"
 # Node names are generated dynamically on startup, so you're relieved
 # from configuring them manually. You can tie this node to a specific name:
 #
-{% if elasticsearch_node.name is defined %}
 node.name: "{{ elasticsearch_node.name }}"
-{% else %}
-node.name: "{{ ansible_hostname }}"
-{% endif %}
 
 # Every node can be configured to allow or deny being eligible as the master,
 # and to allow or deny to store the data.
@@ -174,8 +170,8 @@ bootstrap.mlockall: {{ elasticsearch_bootstrap.mlockall }}
 # try the next port).
 
 # configure service net for transport, loopback for http (we will reverse proxy)
-network.host: {{ ansible_eth1.ipv4.address }}
-http.host: {{ ansible_lo.ipv4.address }}
+network.host: "{{ elasticsearch_network.host }}"
+http.host: "{{ elasticsearch_network.http_host }}"
 
 
 # Set the bind address specifically (IPv4 or IPv6):
@@ -305,7 +301,7 @@ discovery.zen.ping.multicast.enabled: false
 #
 discovery.zen.ping.unicast.hosts: [{% 
 	for host in groups['elasticsearch'] 
-		%} "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}"{% if not loop.last %}, {% endif %} {% 
+		%} "{{ hostvars[host]['ansible_'+elasticsearch_network.unicast_interface]['ipv4']['address'] }}"{% if not loop.last %}, {% endif %} {% 
 	endfor 
 %}]
 #

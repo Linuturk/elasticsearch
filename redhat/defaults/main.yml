@@ -3,3 +3,5 @@ redhat_packages:
   - java-1.7.0-openjdk
   - elasticsearch
   - curl
+
+elasticsearch_defaults_file: '/etc/sysconfig/elasticsearch'

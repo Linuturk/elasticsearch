@@ -15,12 +15,11 @@ ES_GROUP=elasticsearch
 #ES_HEAP_NEWSIZE=
 
 # Heap Size (defaults to 256m min, 1g max)
-# -- this setting actually comes from the common part of the playbook --
-{% if elasticsearch_node is defined and elasticsearch_node.heapsize is defined %}
-ES_HEAP_SIZE={{ elasticsearch_node.heapsize }}
-{% else %}
-ES_HEAP_SIZE={{ ansible_memtotal_mb // 2 }}m
-{% endif %}
+# - override elasticsearch_node.heapsize in inventory file to control this
+ES_HEAP_SIZE={{ elasticsearch_bootstrap.heapsize }}
+ES_MAX_SIZE={{ elasticsearch_bootstrap.heapsize }}
+ES_MIN_SIZE={{ elasticsearch_bootstrap.heapsize }}
+# set all three to cover multiple versions of elasticsearch
 
 # Maximum locked memory size. Set to "unlimited" if you use the
 # bootstrap.mlockall option in elasticsearch.yml. You must also set
@@ -37,19 +36,19 @@ MAX_LOCKED_MEMORY=unlimited
 #MAX_MAP_COUNT=262144
 
 # ElasticSearch log directory
-#LOG_DIR=/var/log/elasticsearch
+LOG_DIR={{ elasticsearch_path.logs }}
 
 # ElasticSearch data directory
-#DATA_DIR=/var/lib/elasticsearch
+DATA_DIR={{ elasticsearch_path.data }}
 
 # ElasticSearch work directory
-#WORK_DIR=/tmp/elasticsearch
+WORK_DIR={{ elasticsearch_path.work }}
 
 # ElasticSearch configuration directory
-#CONF_DIR=/etc/elasticsearch
+CONF_DIR={{ elasticsearch_path.conf }}
 
 # ElasticSearch configuration file (elasticsearch.yml)
-#CONF_FILE=/etc/elasticsearch/elasticsearch.yml
+CONF_FILE=/etc/elasticsearch/elasticsearch.yml
 
 # Additional Java OPTS
 #ES_JAVA_OPTS=

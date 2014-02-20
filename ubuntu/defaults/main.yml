@@ -6,3 +6,5 @@ debian_packages:
 
 requirements:
   - python-pycurl
+
+elasticsearch_defaults_file: '/etc/default/elasticsearch'

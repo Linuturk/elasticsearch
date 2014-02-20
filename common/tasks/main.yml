@@ -1,7 +1,15 @@
 ---
-- name: copy elasticsearch template over to host
+- name: copy elasticsearch /etc/sysconfig or /etc/default template over to host
+  template: src=elasticsearch.j2 dest={{ elasticsearch_defaults_file }} mode=0644 owner=root group=root
+  notify: restart elasticsearch
+
+- name: copy elasticsearch.yml template over to host
   template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml mode=0644 owner=root group=root
+  notify: restart elasticsearch
+
+- name: copy elasticsearch logging.yml template over to host
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml mode=0644 owner=root group=root
+  notify: restart elasticsearch
 
 - name: ensure elasticsearch service is running
   service: name=elasticsearch enabled=yes state=started
-
