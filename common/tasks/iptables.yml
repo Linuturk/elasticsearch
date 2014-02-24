@@ -16,4 +16,3 @@
               insertbefore="^:INPUT ACCEPT \[\d*:\d*\]$"
   notify:
     - restart iptables
-

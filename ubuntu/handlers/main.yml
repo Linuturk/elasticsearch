@@ -1,2 +1,0 @@
-  - name: restart iptables-persistent
-    action: service name=iptables-persistent state=restarted

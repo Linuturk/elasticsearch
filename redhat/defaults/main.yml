@@ -8,4 +8,4 @@ redhat_packages:
 elasticsearch_defaults_file: '/etc/sysconfig/elasticsearch'
 
 iptables_location: '/etc/default/iptables'
-
+iptables_name: 'iptables'

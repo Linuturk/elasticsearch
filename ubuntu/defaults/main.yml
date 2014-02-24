@@ -11,3 +11,4 @@ requirements:
 elasticsearch_defaults_file: '/etc/default/elasticsearch'
 
 iptables_location: '/etc/iptables/rules.v4'
+iptables_name: 'iptables-persistent'
