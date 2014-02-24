@@ -143,6 +143,7 @@ path.plugins: {{ elasticsearch_path.plugins }}
 # If a plugin listed here is not installed for current node, the node will not start.
 #
 # plugin.mandatory: mapper-attachments,lang-groovy
+plugin.mandatory: {{ elasticsearch_node.mandatory_plugins }}
 
 
 ################################### Memory ####################################

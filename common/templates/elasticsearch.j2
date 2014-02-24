@@ -33,6 +33,8 @@ MAX_LOCKED_MEMORY=unlimited
 #MAX_OPEN_FILES=65535
 
 # Maximum number of VMA (Virtual Memory Areas) a process can own
+# Once we move to systemd, this does not have any effect, we will 
+# have to change it in /usr/lib/sysctl.d/elasticsearch.conf 
 #MAX_MAP_COUNT=262144
 
 # ElasticSearch log directory

@@ -6,6 +6,7 @@ elasticsearch_node: {
   master: true,
   data: true,
   name: '{{ ansible_fqdn }}',
+  mandatory_plugins: "paramedic,head",
 }
 
 elasticsearch_index: {
@@ -23,6 +24,7 @@ elasticsearch_bootstrap: {
 }
 
 elasticsearch_path: {
+  home: "/usr/share/elasticsearch", # can't change this without changing packaging
   conf: "/etc/elasticsearch",
   work: "/tmp/elasticsearch",
   logs: "/var/log/elasticsearch",
@@ -43,7 +45,11 @@ elasticsearch_network: {
 #  elasticsearch_http: {
 #  }
 
-     
-#elasticsearch_plugin: {
-#  mandatory: "a_plugin,another_plugin"
-#}
+
+
+# { fetch_path: '<plugin path for download.elasticsearch.org>', name: '<elasticsearch internal name>', url: '<optional plugin url>' }
+# maps to: bin/plugin -install <fetch path> -url <plugin url>  # installs to /usr/share/elasticsearch/plugins/<name>
+elasticsearch_plugins:
+  - { fetch_path: 'karmi/elasticsearch-paramedic', name: 'paramedic' }
+  - { fetch_path: 'mobz/elasticsearch-head', name: 'head' }
+  - { fetch_path: 'lukas-vlcek/bigdesk', name: 'bigdesk' }
