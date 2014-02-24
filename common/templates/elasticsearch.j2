@@ -53,7 +53,7 @@ CONF_DIR={{ elasticsearch_path.conf }}
 CONF_FILE=/etc/elasticsearch/elasticsearch.yml
 
 # Additional Java OPTS
-#ES_JAVA_OPTS=
+ES_JAVA_OPTS="-Djava.net.preferIPv4Stack=true"
 
 # Configure restart on package upgrade (true, every other setting will lead to not restarting)
 #RESTART_ON_UPGRADE=true
