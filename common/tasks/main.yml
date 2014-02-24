@@ -14,12 +14,15 @@
   template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml mode=0644 owner=root group=root
   notify: restart elasticsearch
 
+# Install Other Generic Plugins
+- include: plugins.yml
+  when: (elasticsearch_plugins is defined)
+
 # just verify it's running, enabled, started, but don't restart
 - name: ensure elasticsearch service is running
   service: name=elasticsearch enabled=yes state=started
   notify: verify elasticsearch
 
-# Install Other Generic Plugins
-- include: plugins.yml
-  when: (elasticsearch_plugins is defined)
+# do the iptables work in a separate file
+- include: iptables.yml
 

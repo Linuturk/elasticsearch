@@ -3,8 +3,11 @@ debian_packages:
   - openjdk-7-jre-headless
   - elasticsearch
   - curl
+  - iptables-persistent
 
 requirements:
   - python-pycurl
 
 elasticsearch_defaults_file: '/etc/default/elasticsearch'
+
+iptables_location: '/etc/iptables/rules.v4'
