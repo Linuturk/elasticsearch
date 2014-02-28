@@ -16,3 +16,5 @@
   - name: restart iptables
     action: service name={{iptables_name}} state=restarted
 
+  - name: restart nginx
+    action: service name=nginx state=restarted

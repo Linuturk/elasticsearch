@@ -26,3 +26,5 @@
 # do the iptables work in a separate file
 - include: iptables.yml
 
+# do the nginx work in a separate file
+- include: nginx.yml
