@@ -8,3 +8,5 @@
 - name: install elasticsearch and dependencies
   yum: name={{ item }} state=present
   with_items: redhat_packages
+
+- include: nginx.yml

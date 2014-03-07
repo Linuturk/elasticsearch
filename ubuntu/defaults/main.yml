@@ -19,3 +19,9 @@ elasticsearch_nginx_dir: {
 
 iptables_location: '/etc/iptables/rules.v4'
 iptables_name: 'iptables-persistent'
+
+elasticsearch_nginx: {
+  user: 'root',
+  group: 'www-data',
+  hostname: "{{ elasticsearch_cluster_name }}",
+}

@@ -1,0 +1,12 @@
+- name: remove default nginx site
+  action: file path={{ elasticsearch_nginx_dir.sites_enabled }}/default state=absent
+  notify: restart nginx
+
+- name: copy nginx config file over to host
+  template: src=nginx.conf.j2 dest={{ elasticsearch_nginx_dir.sites_available }}/elasticsearch.conf mode=0644 owner=root group=root
+  notify: restart nginx
+
+- name: ensure symlink for nginx config
+  action: file src={{ elasticsearch_nginx_dir.sites_available }}/elasticsearch.conf dest={{ elasticsearch_nginx_dir.sites_enabled }}/elasticsearch.conf state=link
+  notify: restart nginx
+

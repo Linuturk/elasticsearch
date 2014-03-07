@@ -39,10 +39,6 @@ elasticsearch_network: {
   unicast_interface: 'eth1', # this will drive lookups of eth1's ipv4 addr for the host group
 }
 
-elasticsearch_nginx: {
-  hostname: "{{ elasticsearch_cluster_name }}",
-}
-
 elasticsearch_credentials:
     - { username: 'rack', password: 'givesback' } 
     # ... remove or adjust rack once you override this!
