@@ -156,7 +156,11 @@ plugin.mandatory: {{ elasticsearch_node.mandatory_plugins }}
 #
 # Set this property to true to lock the memory:
 #
-bootstrap.mlockall: {{ elasticsearch_bootstrap.mlockall }}
+{% if elasticsearch_bootstrap.mlockall %}
+bootstrap.mlockall: true
+{% else %}
+bootstrap.mlockall: false
+{% endif %}
 
 # Make sure that the ES_MIN_MEM and ES_MAX_MEM environment variables are set
 # to the same value, and that the machine has enough memory to allocate
