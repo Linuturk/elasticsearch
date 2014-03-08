@@ -1,4 +1,12 @@
 ---
+
+# do iptables before elasticsearch, or ES will be blocked for a bit
+# and this makes discovery get all horked up
+- include: iptables.yml
+
+# do the nginx work in a separate file
+- include: nginx.yml
+
 # needs restart
 - name: copy elasticsearch /etc/sysconfig or /etc/default template over to host
   template: src=elasticsearch.j2 dest={{ elasticsearch_defaults_file }} mode=0644 owner=root group=root
@@ -23,8 +31,3 @@
   service: name=elasticsearch enabled=yes state=started
   notify: verify elasticsearch
 
-# do the iptables work in a separate file
-- include: iptables.yml
-
-# do the nginx work in a separate file
-- include: nginx.yml
