@@ -41,15 +41,18 @@ node.name: "{{ elasticsearch_node.name }}"
 # Allow this node to be eligible as a master node (enabled by default):
 #
 {% if elasticsearch_node.master %}
-# node.master: True (Default)
+node.master: true # YAML true is 'True', we need 'true' (what a pain)
 {% else %}
-# only populate this line when it is false -- elasticsearch is broken.
-node.master: {{ elasticsearch_node.master }}
+node.master: false
 {% endif %}
 #
 # Allow this node to store data (enabled by default):
 #
-node.data: {{ elasticsearch_node.data }}
+{% if elasticsearch_node.data %} 
+node.data: true
+{% else %}
+node.data: false
+{% endif %}
 
 # Use the Cluster Health API [http://localhost:9200/_cluster/health], the
 # Node Info API [http://localhost:9200/_cluster/nodes] or GUI tools
