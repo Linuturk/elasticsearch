@@ -39,9 +39,9 @@ elasticsearch_network: {
   unicast_interface: 'eth1', # this will drive lookups of eth1's ipv4 addr for the host group
 }
 
-elasticsearch_credentials:
-    # - { username: 'rack', password: 'sekrit' } 
-    # ... remove or adjust rack once you override this!
+# override this to supply some default credentials for basic auth over https
+# elasticsearch_credentials:
+    # - { username: 'rack', password: 'password' } 
 
 # { fetch_path: '<plugin path for download.elasticsearch.org>', name: '<elasticsearch internal name>', url: '<optional plugin url>' }
 # maps to: bin/plugin -install <fetch path> -url <plugin url>  # installs to /usr/share/elasticsearch/plugins/<name>

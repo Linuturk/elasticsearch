@@ -1,6 +1,6 @@
 ---
 # OS specific package installations
-- name: Add the OS specific variables
+- name: add OS specific variables
   include_vars: "{{ ansible_os_family }}.yml"
 
 # Redhat specific package installations

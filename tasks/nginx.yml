@@ -8,6 +8,7 @@
 - name: create nginx htpasswd files
   htpasswd: path=/etc/nginx/conf.d/{{ elasticsearch_nginx.hostname }}.htpasswd name={{ item.username }} password={{ item.password }} owner={{ elasticsearch_nginx.user }} group={{ elasticsearch_nginx.group }} mode=0640
   with_items: elasticsearch_credentials
+  when: elasticsearch_credentials is defined
   notify: restart nginx
 
 - name: remove default nginx site
