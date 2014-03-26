@@ -1,4 +1,15 @@
 ---
+# OS specific package installations
+- name: Add the OS specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Redhat specific package installations
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+# Ubuntu specific package installations
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
 
 # do iptables before elasticsearch, or ES will be blocked for a bit
 # and this makes discovery get all horked up
