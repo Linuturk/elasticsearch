@@ -1,7 +1,7 @@
-Role Name
+Elasticsearch
 ========
 
-A brief description of the role goes here.
+Deploys elasticsearch 0.90.x on Debian or Red Hat based distros (tested on CentOS and Ubuntu).
 
 Requirements
 ------------
@@ -21,8 +21,7 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 To Do
 ------------
 
-Things that need to still be done in the future on this role go here.
-
+- iptables work in this role does NOT play nice with other roles
 
 Notes
 ------------
@@ -44,4 +43,8 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Martin Smith <martin.smith@rackspace.com>
+Mike Martin <mike.martin@rackspace.com>
+
+[Rackspace - the open cloud company](http://rackspace.com)
+Ask about our DevOps Automation Service - [www.rackspace.com/devops](http://rackspace.com/devops)
