@@ -285,7 +285,7 @@ http.host: "{{ elasticsearch_network.http_host }}"
 # operational within the cluster. Its recommended to set it to a higher value
 # than 1 when running more than 2 nodes in the cluster.
 #
-# discovery.zen.minimum_master_nodes: 1
+discovery.zen.minimum_master_nodes: {{ elasticsearch_node.minimum_masters }}
 
 # Set the time to wait for ping responses from other nodes when discovering.
 # Set this option to a higher value on a slow or congested network

@@ -7,6 +7,9 @@ elasticsearch_node: {
   data: true,
   name: '{{ ansible_fqdn }}',
   mandatory_plugins: "paramedic,head",
+
+  # discovery.zen.minimum_master_nodes to at least N/2+1
+  minimum_masters: "{{ (groups['elasticsearch']|count//2)+1|int }}"
 }
 
 elasticsearch_index: {
