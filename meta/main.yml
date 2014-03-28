@@ -1,19 +1,19 @@
 ---
 galaxy_info:
-  author: your name
+  author: Martin Smith <martin.smith@rackspace.com>
   description: 
-  company: your company (optional)
-  license: license (GPLv2, CC-BY, etc)
+  company: Rackspace US Inc.
+  license: BSD
   min_ansible_version: 1.2
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your 
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
-  #- name: EL
-  #  versions:
-  #  - all
+  platforms:
+  - name: EL
+    versions:
+    - all
   #  - 5
   #  - 6
   #- name: GenericUNIX
@@ -57,9 +57,9 @@ galaxy_info:
   #  - 9.1
   #  - 9.1
   #  - 9.2
-  #- name: Ubuntu
-  #  versions:
-  #  - all
+  - name: Ubuntu
+    versions:
+    - all
   #  - lucid
   #  - maverick
   #  - natty
@@ -93,13 +93,13 @@ galaxy_info:
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
-  #- cloud
+  categories:
+  - cloud
   #- cloud:ec2
   #- cloud:gce
   #- cloud:rax
-  #- database
-  #- database:nosql
+  - database
+  - database:nosql
   #- database:sql
   #- development
   #- monitoring
