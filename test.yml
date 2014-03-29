@@ -1,0 +1,21 @@
+---
+# test playbook for the elasticsearch role
+- name: installs elasticsearch on all nodes
+  hosts: elasticsearch
+  user: root
+  tasks:
+    - group_by: key={{ ansible_distribution }}
+      changed_when: false
+
+- hosts: Ubuntu
+  gather_facts: no
+  user: root
+  roles:
+    - elasticsearch
+
+- hosts: CentOS:RedHat
+  gather_facts: no
+  user: root
+  roles:
+    - elasticsearch
+
