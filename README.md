@@ -3,7 +3,7 @@ Elasticsearch
 
 Deploys elasticsearch 0.90.x on Debian or Red Hat based distros (tested on CentOS and Ubuntu).
 
-[![Build Status](http://drone.onitato.com/github.com/rack-roles/elasticsearch/status.svg?branch=master)](http://drone.onitato.com/github.com/rack-roles/elasticsearch)
+[![Build Status](https://drone-opsdev.rax.io/github.com/rack-roles/elasticsearch/status.svg?branch=master)](https://drone-opsdev.rax.io/github.com/rack-roles/elasticsearch)
 
 Requirements
 ------------
